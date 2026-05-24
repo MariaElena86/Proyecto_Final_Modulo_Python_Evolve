@@ -16,8 +16,16 @@ def scatterplot_q1(df: pd.DataFrame) -> None:
 
     plt.figure(figsize=(12, 6))
     sns.scatterplot(data=df_q1, x='budget', y='roi', alpha=0.6)
-    sns.regplot(data=df_q1, x='budget', y='roi', scatter=False, lowess=True, color='red', line_kws={'linewidth': 2})
+    sns.regplot(data=df_q1, 
+                x='budget', 
+                y='roi', 
+                scatter=False, 
+                lowess=True,
+                color='red', 
+                line_kws={'linewidth': 2}
+            )
 
+    plt.yscale('log')
     plt.xscale('log')
     plt.xlabel('Presupuesto (Budget)')
     plt.ylabel('Retorno de inversión (ROI)')
@@ -35,7 +43,14 @@ def barplot_q2(df: pd.DataFrame) -> None:
     )
 
     plt.figure(figsize=(14, 6))
-    sns.barplot(x=genre_budget.index[:20], y=genre_budget.values[:20], palette='viridis')
+    sns.barplot(
+        x=genre_budget.index[:20],
+        y=genre_budget.values[:20],
+        hue=genre_budget.index[:20],
+        palette='viridis',
+        legend=False
+    )   
+
     plt.xticks(rotation=45, ha='right')
     plt.xlabel('Género')
     plt.ylabel('Presupuesto (Budget)')
