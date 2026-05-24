@@ -101,11 +101,13 @@ def scatterplot_q4(df: pd.DataFrame) -> None:
 
 # Q5. ¿Cuáles son las "joyas escondidas" (alta valoración, alto ROI y baja popularidad)?
 def scatterplot_q5(df: pd.DataFrame) -> None:
-    df_hidden = df[(df['roi'] > 2) & (df['vote_average'] > 7)]
+    # Filtrado básico para evitar problemas con log
+    df_plot = df[(df['roi'] > 0) & (df['vote_average'] > 0)]
 
     plt.figure(figsize=(10, 6))
+
     sns.scatterplot(
-        data=df_hidden,
+        data=df_plot,
         x='vote_average',
         y='roi',
         hue='roi',
@@ -114,21 +116,15 @@ def scatterplot_q5(df: pd.DataFrame) -> None:
         edgecolor='w',
         linewidth=0.5
     )
-    sns.regplot(
-        data=df_hidden,
-        x='vote_average',
-        y='roi',
-        scatter=False,
-        color='black',
-        line_kws={'linewidth': 1.5},
-        lowess=True
-    )
-    plt.yscale('log')
+
+    # Escalas log (correctas para datos financieros)
     plt.xscale('log')
-    #plt.yscale('symlog')
+    plt.yscale('log')
+
     plt.xlabel('Valoración Crítica (vote_average)')
     plt.ylabel('Retorno de Inversión (ROI)')
-    plt.title('Relación entre valoración y ROI')
+    plt.title('Relación entre valoración y ROI (escala log-log)')
+
     plt.legend([], [], frameon=False)
     plt.tight_layout()
     plt.show()
