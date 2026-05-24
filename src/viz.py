@@ -68,7 +68,11 @@ def boxplot_q3(df: pd.DataFrame) -> None:
     )
 
     plt.figure(figsize=(14, 6))
-    sns.barplot(x=genre_roi.index[:20], y=genre_roi.values[:20], palette='viridis')
+    sns.barplot(x=genre_roi.index[:20],
+                y=genre_roi.values[:20], 
+                hue=genre_roi.index[:20],
+                palette='viridis'
+                )
     plt.xticks(rotation=45, ha='right')
     plt.yscale('log')
     plt.xlabel('Género')
