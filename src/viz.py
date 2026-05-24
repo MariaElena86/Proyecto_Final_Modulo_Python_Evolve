@@ -42,14 +42,17 @@ def barplot_q2(df: pd.DataFrame) -> None:
                 .sort_values(ascending=False)
     )
 
+    top = genre_budget.head(20).reset_index()
+    top.columns = ['genre', 'budget']
     plt.figure(figsize=(14, 6))
     sns.barplot(
-        x=genre_budget.index[:20],
-        y=genre_budget.values[:20],
-        hue=genre_budget.index[:20],
+        data=top,
+        x='genre',
+        y='budget',
+        hue='genre',
         palette='viridis',
         legend=False
-    )   
+    )  
 
     plt.xticks(rotation=45, ha='right')
     plt.xlabel('Género')
