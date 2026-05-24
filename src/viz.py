@@ -70,6 +70,7 @@ def boxplot_q3(df: pd.DataFrame) -> None:
     plt.figure(figsize=(14, 6))
     sns.barplot(x=genre_roi.index[:20], y=genre_roi.values[:20], palette='viridis')
     plt.xticks(rotation=45, ha='right')
+    plt.yscale('log')
     plt.xlabel('Género')
     plt.ylabel('Rentabilidad (ROI) promedio')
     plt.title('Top 20 géneros por rentabilidad promedio')
@@ -83,10 +84,11 @@ def scatterplot_q4(df: pd.DataFrame) -> None:
     scatter = plt.scatter(data=df_q4, x='popularity', y='vote_average', 
                         c='roi', s=100, alpha=0.6, cmap='RdYlGn', edgecolors='black', linewidth=0.5)
     plt.colorbar(scatter, label='ROI')
+    plt.yscale('log')
+    plt.xscale('log')
     plt.xlabel('Popularidad')
     plt.ylabel('Calificación de la crítica (vote_average)')
     plt.title('Relación entre Popularidad, Calificación y ROI')
-    plt.xscale('log')
     plt.tight_layout()
     plt.show()
 
@@ -114,7 +116,9 @@ def scatterplot_q5(df: pd.DataFrame) -> None:
         line_kws={'linewidth': 1.5},
         lowess=True
     )
-    plt.yscale('symlog')
+    plt.yscale('log')
+    plt.xscale('log')
+    #plt.yscale('symlog')
     plt.xlabel('Valoración Crítica (vote_average)')
     plt.ylabel('Retorno de Inversión (ROI)')
     plt.title('Relación entre valoración y ROI')
